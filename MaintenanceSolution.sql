@@ -8979,6 +8979,12 @@ BEGIN
          'sp_purge_jobhistory'
 
   INSERT INTO @Jobs ([Name], CommandTSQL, DatabaseName, OutputFileNamePart01)
+  SELECT 'DBMail Housekeeping',
+         'DECLARE @CleanupDate datetime' + CHAR(13) + CHAR(10) + 'SET @CleanupDate = DATEADD(dd,-30,GETDATE())' + CHAR(13) + CHAR(10) + 'EXECUTE dbo.sysmail_delete_mailitems_sp @sent_before = @CleanupDate' + CHAR(13) + CHAR(10) + 'EXECUTE dbo.sysmail_delete_log_sp @logged_before = @CleanupDate',
+         'msdb',
+         'DBMail_Housekeeping'
+
+  INSERT INTO @Jobs ([Name], CommandTSQL, DatabaseName, OutputFileNamePart01)
   SELECT 'CommandLog Cleanup',
          'DELETE FROM [dbo].[CommandLog]' + CHAR(13) + CHAR(10) + 'WHERE StartTime < DATEADD(dd,-30,GETDATE())',
          @DatabaseName,
@@ -8999,7 +9005,7 @@ BEGIN
   BEGIN
    UPDATE @Jobs
    SET Selected = 1
-   WHERE [Name] IN('DatabaseIntegrityCheck - SYSTEM_DATABASES','DatabaseIntegrityCheck - USER_DATABASES','IndexOptimize - USER_DATABASES','CommandLog Cleanup','sp_delete_backuphistory','sp_purge_jobhistory')
+   WHERE [Name] IN('DatabaseIntegrityCheck - SYSTEM_DATABASES','DatabaseIntegrityCheck - USER_DATABASES','IndexOptimize - USER_DATABASES','CommandLog Cleanup','sp_delete_backuphistory','sp_purge_jobhistory','DBMail Housekeeping')
   END
   ELSE IF @HostPlatform = 'Windows'
   BEGIN
