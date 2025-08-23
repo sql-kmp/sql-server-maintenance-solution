@@ -10,7 +10,7 @@ License: https://ola.hallengren.com/license.html
 
 GitHub: https://github.com/olahallengren/sql-server-maintenance-solution
 
-Version: 2025-07-22 16:49:16
+Version: 2025-08-23 11:56:20
 
 You can contact me by e-mail at ola@hallengren.com.
 
@@ -137,7 +137,7 @@ BEGIN
   --// Source:  https://ola.hallengren.com                                                        //--
   --// License: https://ola.hallengren.com/license.html                                           //--
   --// GitHub:  https://github.com/olahallengren/sql-server-maintenance-solution                  //--
-  --// Version: 2025-07-22 16:49:16                                                               //--
+  --// Version: 2025-08-23 11:56:20                                                               //--
   ----------------------------------------------------------------------------------------------------
 
   SET NOCOUNT ON
@@ -484,7 +484,7 @@ BEGIN
   --// Source:  https://ola.hallengren.com                                                        //--
   --// License: https://ola.hallengren.com/license.html                                           //--
   --// GitHub:  https://github.com/olahallengren/sql-server-maintenance-solution                  //--
-  --// Version: 2025-07-22 16:49:16                                                               //--
+  --// Version: 2025-08-23 11:56:20                                                               //--
   ----------------------------------------------------------------------------------------------------
 
   SET NOCOUNT ON
@@ -1620,7 +1620,9 @@ BEGIN
     SELECT 'The value for the parameter @Compress is not supported.', 16, 1
   END
 
-  IF @Compress = 'Y' AND @BackupSoftware IS NULL AND NOT ((@Version >= 10 AND @Version < 10.5 AND SERVERPROPERTY('EngineEdition') = 3) OR (@Version >= 10.5 AND (SERVERPROPERTY('EngineEdition') IN (3, 8) OR SERVERPROPERTY('EditionID') IN (-1534726760, 284895786))))
+  IF @Compress = 'Y' AND @BackupSoftware IS NULL
+  AND NOT ((@Version >= 10 AND @Version < 10.5 AND SERVERPROPERTY('EngineEdition') = 3)
+  OR (@Version >= 10.5 AND (SERVERPROPERTY('EngineEdition') IN (3, 8) OR SERVERPROPERTY('EditionID') IN (-1534726760, 284895786, -1785266663))))
   BEGIN
     INSERT INTO @Errors ([Message], Severity, [State])
     SELECT 'The value for the parameter @Compress is not supported. Backup compression is not supported in this version and edition of SQL Server.', 16, 2
@@ -4811,7 +4813,7 @@ BEGIN
   --// Source:  https://ola.hallengren.com                                                        //--
   --// License: https://ola.hallengren.com/license.html                                           //--
   --// GitHub:  https://github.com/olahallengren/sql-server-maintenance-solution                  //--
-  --// Version: 2025-07-22 16:49:16                                                               //--
+  --// Version: 2025-08-23 11:56:20                                                               //--
   ----------------------------------------------------------------------------------------------------
 
   SET NOCOUNT ON
@@ -6710,7 +6712,7 @@ BEGIN
   --// Source:  https://ola.hallengren.com                                                        //--
   --// License: https://ola.hallengren.com/license.html                                           //--
   --// GitHub:  https://github.com/olahallengren/sql-server-maintenance-solution                  //--
-  --// Version: 2025-07-22 16:49:16                                                               //--
+  --// Version: 2025-08-23 11:56:20                                                               //--
   ----------------------------------------------------------------------------------------------------
 
   SET NOCOUNT ON
